@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 
 const Users = require('../users/users-model.js');
 const jwt = require('jsonwebtoken');
+const secrets = require('../config/secrets.js')
 
 // for endpoints beginning with /api/auth
 router.post('/register', (req, res) => {
@@ -48,13 +49,11 @@ const payload = {
   subject: user.id,
 };
 
-const secret = 'Elemeno';
-
 const options = {
   expiresIn: '2h'
 }
 
-  return jwt.sign(payload,secret,options);
+  return jwt.sign(payload,secrets.jwtSecret,options);
 }
 
 module.exports = router;
